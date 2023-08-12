@@ -13,7 +13,7 @@ class LoginCubit extends Cubit<LoginState> {
   // login method
   void login() async {
     emit(LoginLoading());
-    signInWithGoogleWeb()
+    signInWithGoogle()
         .then((credential) => emit(LoginSuccessful(credential)));
   }
 
