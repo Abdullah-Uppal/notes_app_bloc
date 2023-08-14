@@ -13,7 +13,6 @@ abstract class INotesRepository {
 }
 
 class NotesRepository implements INotesRepository {
-  final List<Note> _notes = [];
   // firestore database
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   late final CollectionReference _notesCollection;
@@ -22,7 +21,6 @@ class NotesRepository implements INotesRepository {
   }
   @override
   Future<void> addNote({required String title, required String description}) {
-    print("HERE");
     return _notesCollection.doc().set({
       "title": title,
       "description": description,
@@ -33,10 +31,10 @@ class NotesRepository implements INotesRepository {
   @override
   Future<List<Note>> getNotes() async {
     var x = await _notesCollection.get();
-    _notes.clear();
+    final List<Note> notes = [];
     // return the list of notes
     for (var element in x.docs) {
-      _notes.add(
+      notes.add(
         Note(
           title: element["title"],
           description: element["description"],
@@ -44,6 +42,6 @@ class NotesRepository implements INotesRepository {
         ),
       );
     }
-    return _notes;
+    return notes;
   }
 }

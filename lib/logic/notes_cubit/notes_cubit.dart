@@ -15,13 +15,16 @@ class NotesCubit extends Cubit<NotesState> {
   }
 
   void getNotes() async {
-    emit(NotesLoading());
+    if (state is! NotesLoaded) {
+      emit(NotesLoading());
+    }
+    // emit(NotesLoading());
     final List<Note> notes = await repository.getNotes();
     emit(NotesLoaded(notes));
   }
 
   void addNote(Note note) async {
-    repository.addNote(
+    await repository.addNote(
       title: note.title,
       description: note.description,
     );

@@ -70,6 +70,7 @@ class NotesPage extends StatelessWidget {
             body: BlocBuilder<NotesCubit, NotesState>(
               builder: (context, state) {
                 if (state is NotesLoaded) {
+                  print("BUILDING list");
                   return customListView(state.notes, context);
                 }
                 return const Center(
